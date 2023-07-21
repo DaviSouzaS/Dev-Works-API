@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +27,24 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $error) {
+
+        if($error instanceof ValidationException) {
+            return response()->json([
+                'error' => $error->validator->errors()
+            ], 422);
+        }
+
+        if($error instanceof AppError) {
+            return response()->json([
+                'error' => $error->getMessage()
+            ], $error->getCode());
+        }
+
+        return response()->json([
+            'message' => 'Internal Server Error'
+        ], 500);
     }
 }
