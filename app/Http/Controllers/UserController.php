@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
-use App\Services\CreateUserService;
-use App\Services\ReadUserByIdService;
+use App\Http\Requests\{CreateUserRequest, UpdateUserRequest};
+use App\Services\{CreateUserService, ReadUserByIdService, UpdateUserService};
 
 class UserController extends Controller {
 
@@ -19,5 +18,14 @@ class UserController extends Controller {
         $readUserByidService = new ReadUserByIdService();
 
         return $readUserByidService->execute($id);
+    }
+
+    public function update(UpdateUserRequest $request) {
+        
+        $updateUserService = new UpdateUserService();
+
+        $userId = auth()->user()->id;
+
+        return $updateUserService->execute($request->all(), $userId);
     }
 }
