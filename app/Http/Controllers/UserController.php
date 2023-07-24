@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\{CreateUserRequest, UpdateUserRequest};
-use App\Services\{CreateUserService, ReadUserByIdService, UpdateUserService};
+use App\Http\Requests\{CreateUserRequest, DeleteUserRequest, UpdateUserRequest};
+use App\Services\{CreateUserService, DeleteUserService, ReadUserByIdService, UpdateUserService};
 
 class UserController extends Controller {
 
@@ -27,5 +27,13 @@ class UserController extends Controller {
         $userId = auth()->user()->id;
 
         return $updateUserService->execute($request->all(), $userId);
+    }
+
+    public function delete(DeleteUserRequest $request) {
+        $deleteUserService = new DeleteUserService();
+
+        $userId = auth()->user()->id;
+
+        return $deleteUserService->execute($userId);
     }
 }
