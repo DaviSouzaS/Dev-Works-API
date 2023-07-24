@@ -6,7 +6,7 @@ use App\Exceptions\AppError;
 use ErrorException;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class DeleteUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,6 +19,7 @@ class UpdateUserRequest extends FormRequest
         } catch (ErrorException $error) {
             throw new AppError('User not found', 404);
         }
+
     }
 
     /**
@@ -27,12 +28,6 @@ class UpdateUserRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array {
-        return [
-            'name' => ['nullable', 'max:50', 'string'],
-            'email' => ['nullable', 'email', 'max:127', 'string'],
-            'password' => ['nullable', 'min:8', 'max:255', 'string'],
-            'description' => ['nullable', 'string'],
-            'is_dev' => ['nullable', 'boolean']
-        ];
+        return [];
     }
 }

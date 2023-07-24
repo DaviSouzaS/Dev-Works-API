@@ -9,4 +9,5 @@ Route::get('/user/{id}', [UserController::class, 'readById']);
 
 Route::middleware('jwt.verify')->group(function() {
     Route::patch('/user/{id}', [UserController::class, 'update']);
+    Route::delete('/user/{id}', [UserController::class, 'delete']);
 });
