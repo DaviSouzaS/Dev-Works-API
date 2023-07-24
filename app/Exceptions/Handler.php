@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,6 +43,18 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'error' => $error->getMessage()
             ], $error->getCode());
+        }
+
+        if($error instanceof AuthorizationException) {
+            return response()->json([
+                'error' => $error->getMessage()
+            ], 403);
+        }
+
+        if($error instanceof NotFoundHttpException) {
+            return response()->json([
+                'error' => $error->getMessage()
+            ], 404);
         }
 
         return response()->json([
