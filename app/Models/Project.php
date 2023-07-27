@@ -25,4 +25,8 @@ class Project extends Model
     public function technologies(): HasMany {
         return $this->hasMany(Technology::class);
     }
+
+    public function comments(): HasMany {
+        return $this-> hasMany(Comment_Project_User::class);
+    }
 }
