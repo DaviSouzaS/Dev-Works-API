@@ -32,7 +32,9 @@ class UpdateUserRequest extends FormRequest
             'email' => ['nullable', 'email', 'max:127', 'string'],
             'password' => ['nullable', 'min:8', 'max:255', 'string'],
             'description' => ['nullable', 'string'],
-            'is_dev' => ['nullable', 'boolean']
+            'is_dev' => ['nullable', 'boolean'],
+            'linkedin' => ['nullable', 'string', 'max:255'],
+            'portfolio' => ['nullable', 'string', 'max:255']
         ];
     }
 }
