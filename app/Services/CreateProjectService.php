@@ -22,9 +22,7 @@ class CreateProjectService {
             $project->technologies()->createMany($technologies);
         }
 
-        $techs = $project->technologies;
-
-        $project->technologies = $techs;
+        $project->technologies;
 
         return $project;
     }

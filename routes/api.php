@@ -13,3 +13,4 @@ Route::middleware('jwt.verify')->group(function() {
     Route::post('/project', [ProjectController::class, 'create']);
 });
 
+Route::get('/project/{id}', [ProjectController::class, 'readById']);
