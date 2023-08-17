@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('linkedin');
-            $table->string('portfolio');
+            $table->string('linkedin')->nullable();
+            $table->string('portfolio')->nullable();
         });
     }
 
-    /**-
+    /**
      * Reverse the migrations.
      */
     public function down(): void

@@ -10,6 +10,8 @@ class Technology extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'technology';
 
     protected $fillable = [

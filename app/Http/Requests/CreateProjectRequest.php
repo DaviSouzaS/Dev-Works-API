@@ -4,15 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteUserRequest extends FormRequest
+class CreateProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
-       
-        $userId = auth()->user()->id;
-        return $userId == $this->route('id');
+        
+        $userIsDev = auth()->user()->is_dev;
+        return $userIsDev;
     }
 
     /**
@@ -21,6 +21,10 @@ class DeleteUserRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array {
-        return [];
+        return [
+            'name' => ['required', 'max:100', 'string'],
+            'description' => ['required', 'string'],
+            'technologies' => ['array']
+        ];
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Exceptions\AppError;
-use ErrorException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -12,13 +10,9 @@ class UpdateUserRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
-        try {
-            $userId = auth()->user()->id;
-            return $userId == $this->route('id');
-
-        } catch (ErrorException $error) {
-            throw new AppError('User not found', 404);
-        }
+        
+        $userId = auth()->user()->id;
+        return $userId == $this->route('id');
     }
 
     /**
