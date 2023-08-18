@@ -2,17 +2,28 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteUserRequest extends FormRequest
+class DeleteProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
        
-        $userId = auth()->user()->id;
-        return $userId == $this->route('id');
+        $userIsDev = auth()->user()->is_dev;
+
+        if ($userIsDev) {
+           $projectId = $this->route('id');
+           $userId =  auth()->user()->id;
+
+           $project = Project::find($projectId);
+
+           return $userId == $project->user_id;
+        }
+
+        return true;
     }
 
     /**
