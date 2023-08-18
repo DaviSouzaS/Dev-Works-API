@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProjectRequest;
+use App\Http\Requests\DeleteProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Services\CreateProjectService;
+use App\Services\DeleteProjectService;
 use App\Services\ReadAllProjectsService;
 use App\Services\ReadProjectByIdService;
 use App\Services\UpdateProjectService;
@@ -31,10 +33,18 @@ class ProjectController extends Controller {
 
     public function update(UpdateProjectRequest $request) {
 
-        $readAllProjects = new UpdateProjectService();
+        $updateProject = new UpdateProjectService();
 
         $projectId = $request->route('id');
 
-        return $readAllProjects->execute($request->all(), $projectId);
+        return $updateProject->execute($request->all(), $projectId);
+    }
+
+    public function delete(DeleteProjectRequest $request) {
+        $deleteProject = new DeleteProjectService();
+
+        $projectId = $request->route('id');
+
+        return $deleteProject->execute($projectId);
     }
 }

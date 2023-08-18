@@ -12,6 +12,7 @@ Route::middleware('jwt.verify')->group(function() {
     Route::delete('/user/{id}', [UserController::class, 'delete']);
     Route::post('/project', [ProjectController::class, 'create']);
     Route::patch('/project/{id}', [ProjectController::class, 'update']);
+    Route::delete('/project/{id}', [ProjectController::class, 'delete']);
 });
 
 Route::get('/project/{id}', [ProjectController::class, 'readById']);
