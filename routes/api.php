@@ -20,3 +20,5 @@ Route::middleware('jwt.verify')->group(function() {
 
 Route::get('/project/{id}', [ProjectController::class, 'readById']);
 Route::get('/project', [ProjectController::class, 'readAll']);
+
+Route::get('/comment/{id}', [CommentController::class, 'readAll']);
