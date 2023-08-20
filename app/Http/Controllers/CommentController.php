@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCommentRequest;
+use App\Http\Requests\DeleteCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Services\CreateCommentService;
+use App\Services\DeleteCommentService;
 use App\Services\ReadAllCommentsByProjectService;
 use App\Services\UpdateCommentService;
 use Illuminate\Foundation\Http\FormRequest;
@@ -33,5 +35,13 @@ class CommentController extends Controller {
       $commentId = $request->route('id');
 
       return $updateCommentService->execute($request->all(), $commentId);
+   }
+
+   public function delete (DeleteCommentRequest $request) {
+      $deleteCommentService = new DeleteCommentService();
+
+      $commentId = $request->route('id');
+
+      return $deleteCommentService->execute($commentId);
    }
 }
