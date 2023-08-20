@@ -3,32 +3,27 @@
 namespace App\Http\Requests;
 
 use App\Exceptions\AppError;
-use App\Models\Project;
+use App\Models\Comment_Project_User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteProjectRequest extends FormRequest
+class DeleteCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
        
-        $userIsDev = auth()->user()->is_dev;
+        $commentId = $this->route('id');
 
-        if (!$userIsDev) {
-            return false;
+        $comment = Comment_Project_User::find($commentId);
+
+        if (!$comment) {
+            throw new AppError('Comment not found', 404);
         }
 
-        $projectId = $this->route('id');
-        $userId =  auth()->user()->id;
+        $userId = auth()->user()->id;
 
-        $project = Project::find($projectId);
-
-        if (!$project) {
-            throw new AppError('Project not found', 404);
-        }
-
-        return $userId == $project->user_id;
+        return $comment->user_id == $userId;
     }
 
     /**
