@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Exceptions\AppError;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DeleteUserRequest extends FormRequest
@@ -10,9 +11,14 @@ class DeleteUserRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
-       
-        $userId = auth()->user()->id;
-        return $userId == $this->route('id');
+
+        $user = auth()->user();
+
+        if (!$user) {
+            throw new AppError('User not found', 404);
+        }
+        
+        return $user->id == $this->route('id');
     }
 
     /**

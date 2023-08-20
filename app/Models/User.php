@@ -72,4 +72,8 @@ class User extends Authenticatable implements JWTSubject{
     public function comments_project(): BelongsToMany {
         return $this->belongsToMany(Project::class, Comment_Project_User::class)->withTimestamps();
     }
+
+    public function comments(): HasMany {
+        return $this-> hasMany(Comment_Project_User::class);
+    }
 }

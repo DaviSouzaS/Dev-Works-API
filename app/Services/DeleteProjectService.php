@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Exceptions\AppError;
 use App\Models\Project;
 
 class DeleteProjectService {
@@ -10,10 +9,6 @@ class DeleteProjectService {
     public function execute(string $projectId) {
 
         $project = Project::find($projectId);
-
-        if (!$project) {
-            throw new AppError('project not found', 404);
-        }
 
         $project->technologies()->delete();
         $project->comments()->delete();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Exceptions\AppError;
 use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,16 +15,20 @@ class DeleteProjectRequest extends FormRequest
        
         $userIsDev = auth()->user()->is_dev;
 
-        if ($userIsDev) {
-           $projectId = $this->route('id');
-           $userId =  auth()->user()->id;
-
-           $project = Project::find($projectId);
-
-           return $userId == $project->user_id;
+        if (!$userIsDev) {
+            return false;
         }
 
-        return true;
+        $projectId = $this->route('id');
+        $userId =  auth()->user()->id;
+
+        $project = Project::find($projectId);
+
+        if (!$project) {
+            throw new AppError('Project not found', 404);
+        }
+
+        return $userId == $project->user_id;
     }
 
     /**

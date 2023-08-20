@@ -30,4 +30,8 @@ class Project extends Model
     public function comments_user(): BelongsToMany {
         return $this->belongsToMany(User::class, Comment_Project_User::class)->withTimestamps();
     }
+
+    public function comments(): HasMany {
+        return $this-> hasMany(Comment_Project_User::class);
+    }
 }
