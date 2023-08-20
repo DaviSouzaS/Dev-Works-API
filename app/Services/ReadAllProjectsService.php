@@ -8,7 +8,7 @@ use App\Models\Project;
 class ReadAllProjectsService {
     public function execute() {
         
-        $projectExist = Project::with("technologies", "comments")->get();
+        $projectExist = Project::with("technologies")->get();
 
         if (!sizeof($projectExist)) {
             throw new AppError('Projects not found', 404);
