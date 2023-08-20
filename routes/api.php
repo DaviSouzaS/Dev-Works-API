@@ -16,6 +16,7 @@ Route::middleware('jwt.verify')->group(function() {
     Route::delete('/project/{id}', [ProjectController::class, 'delete']);
 
     Route::post('/comment/{id}', [CommentController::class, 'create']);
+    Route::patch('/comment/{id}', [CommentController::class, 'update']);
 });
 
 Route::get('/project/{id}', [ProjectController::class, 'readById']);
