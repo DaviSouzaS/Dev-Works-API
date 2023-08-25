@@ -8,7 +8,6 @@
 
 <ul>
     <li>1º command: ".vendor/bin/sail up"</li>
-    <li>2º command: "docker-compose up"</li>
 </ul>
 
 <p>It is only necessary to use the 1st command once. To run the application afterwards, it is only necessary to write "docker-compose up" in the terminal.</p>
